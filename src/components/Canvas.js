@@ -22,6 +22,11 @@ export default class Canvas extends Component {
 		return this.props.tools.brush_size;
 	}
 
+	getColor() {
+		return this.props.tools.brush_color;
+	}
+
+
 	getX(event) {
 		if (event.pageX === undefined) {
 			return event.targetTouches[0].pageX - this.refs.canvas.offsetLeft;
@@ -55,6 +60,11 @@ export default class Canvas extends Component {
 			ctx.lineWidth = this.getStroke();
 			ctx.lineCap = "round";
 			ctx.lineJoin = "round";
+			if (this.props.tools.tool === ERASER) {
+      	ctx.strokeStyle = "#FFFFFF ";
+      } else {
+      	ctx.strokeStyle = this.getColor();
+      }
 			ctx.stroke();
 		}
 		event.preventDefault();
